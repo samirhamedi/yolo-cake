@@ -1,0 +1,12 @@
+path: ./dataset/
+train: train/images
+val: val/images
+
+names:
+  0: Chocolate Cake
+  1: Sponge Cake
+  2: Red Velvet
+  3: Whipped Cream
+  4: Chocolate Coated
+  5: Jam Coated
+  6: Vermicelli 

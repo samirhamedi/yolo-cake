@@ -1,0 +1,37 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Chocolate Cake"
+    },
+    {
+      "id": 1,
+      "name": "Chocolate Coated"
+    },
+    {
+      "id": 2,
+      "name": "Jam Coated"
+    },
+    {
+      "id": 3,
+      "name": "Red Velvet"
+    },
+    {
+      "id": 4,
+      "name": "Sponge Cake"
+    },
+    {
+      "id": 5,
+      "name": "Vermicelli"
+    },
+    {
+      "id": 6,
+      "name": "Whipped Cream"
+    }
+  ],
+  "info": {
+    "year": 2026,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
