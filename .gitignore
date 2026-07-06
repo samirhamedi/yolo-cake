@@ -1,2 +1,4 @@
 runs/
 /*.pt
+.venv/
+__pycache__/
