@@ -65,20 +65,9 @@ def main():
 
     # Recording
     recorder = None
-    if record:
-        if source_type not in ['video', 'usb']:
-            print("Recording only works for video or webcam.")
-            sys.exit(0)
-        if not user_res:
-            print("Specify resolution for recording.")
-            sys.exit(0)
-
-        recorder = cv2.VideoWriter(
-            "demo1.avi",
-            cv2.VideoWriter_fourcc(*"MJPG"),
-            30,
-            (resW, resH)
-        )
+    if record and source_type not in ['video', 'usb']:
+        print("Recording only works for video or webcam.")
+        sys.exit(0)
 
     # Load source
     cap = None
@@ -102,6 +91,42 @@ def main():
         if resize:
             cap.set(3, resW)
             cap.set(4, resH)
+
+    # Set up recorder now that the source dimensions are known
+    if record:
+        src_fps = cap.get(cv2.CAP_PROP_FPS) or 30
+        if resize:
+            out_w, out_h = resW, resH
+        else:
+            out_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            out_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+        # Keep the same container/format as the source file
+        if source_type == "video":
+            base, out_ext = os.path.splitext(os.path.basename(img_source))
+        else:
+            base, out_ext = "webcam", ".mp4"
+        out_ext = out_ext.lower()
+
+        # Pick a codec that matches the container
+        codec_map = {
+            ".mp4": "mp4v",
+            ".mov": "mp4v",
+            ".mkv": "mp4v",
+            ".avi": "XVID",
+            ".wmv": "WMV2",
+        }
+        fourcc_str = codec_map.get(out_ext, "mp4v")
+
+        out_path = f"{base}_detected{out_ext}"
+        recorder = cv2.VideoWriter(
+            out_path,
+            cv2.VideoWriter_fourcc(*fourcc_str),
+            src_fps,
+            (out_w, out_h),
+        )
+        print(f"Recording to {out_path} "
+              f"({out_w}x{out_h} @ {src_fps:.2f} fps, codec {fourcc_str})")
 
     # Colors
     bbox_colors = [

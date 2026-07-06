@@ -2,3 +2,10 @@ runs/
 /*.pt
 .venv/
 __pycache__/
+
+# Video files
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.wmv
